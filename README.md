@@ -11,16 +11,15 @@ In the checked out directory:
 
 
 # Installing Dependencies
-'''
-sudo apt install composer php-cli php-curl
+```sudo apt install composer php-cli php-curl
 sudo apt install bind9 bind9utils bind9-doc
-'''
+```
 
 ## Set up Bind (this turtorial is useful: https://www.linuxtechi.com/install-configure-bind-9-dns-server-ubuntu-debian/)
 
 ### /etc/bind/named.conf.options
 edit the iprange below to match your internal network
-'''
+```
 options {
         directory "/var/cache/bind";
         auth-nxdomain no;    # conform to RFC1035
@@ -31,11 +30,11 @@ options {
         recursion yes;
         dnssec-validation auto;
 };
-'''
+```
 
 
 ### named.conf.local
-'''
+```
 //
 // Do any local configuration here
 //
@@ -53,12 +52,12 @@ zone   "1.168.192.in-addr.arpa"        {
        type master;
        file    "/etc/bind/reverse.mylocaldomainname.local";
  };
-'''
+```
 
 ## Configure the php scripts
 
 Add in your controller user, controller password, controller url, nameserver name, domain name and Name Server ip
-'''
+```
 <?php
 $controlleruser     = 'changeme'; // the user name for access to the UniFi Controller
 $controllerpassword = 'changeme'; // the password for access to the UniFi Controller
@@ -75,7 +74,7 @@ $refresh            = 10800;
 $retry              = 3600;
 $expire             = 432000;
 $negative           = 600;
-'''
+```
 
 run the script
 
@@ -88,3 +87,9 @@ Restart and enable bind:
 sudo systemctl restart bind9
 sudo systemctl enable bind9
 
+I set it up to run every minute to update from cron:
+
+add the following line using sudo crontab -e:
+'''
+* * * * * /path/to/update.sh
+'''
