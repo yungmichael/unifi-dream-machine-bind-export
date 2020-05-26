@@ -30,7 +30,8 @@ dnsHeader($fp,$ttl,$nsname,$domain,$refresh,$retry,$expire,$negative,$nsip);
 
 foreach ($clients_array as $client) {
   if (property_exists($client,"hostname")) {
-     fprintf($fp,"%-30s IN	A	%s\n",strtolower($client->hostname),$client->ip);
+     $hostname=preg_replace("/[^a-zA-Z]+/", "", strtolower($client->hostname));
+     fprintf($fp,"%-30s IN	A	%s\n",$hostname,$client->ip);
   }
 }
 
@@ -47,6 +48,7 @@ fprintf($fp,";Reverse Lookup for Your DNS Server;\n%-30s      IN      PTR     %s
 foreach ($clients_array as $client) {
   if (property_exists($client,"hostname")) {
      list($ip1,$ip2,$ip3,$ip4) = explode(".",$client->ip);
-     fprintf($fp,"%-30s IN	PTR	%s.%s.\n",$ip4,strtolower($client->hostname),$domain);
+     $hostname=preg_replace("/[^a-zA-Z]+/", "", strtolower($client->hostname));
+     fprintf($fp,"%-30s IN	PTR	%s.%s.\n",$hostname,$domain);
   }
 }
