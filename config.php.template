@@ -1,0 +1,16 @@
+<?php
+$controlleruser     = 'changeme'; // the user name for access to the UniFi Controller
+$controllerpassword = 'changeme'; // the password for access to the UniFi Controller
+$controllerurl      = 'changeme'; // full url to the UniFi Controller, eg. 'https://22.22.11.11:8443', for UniFi OS-based
+                          // controllers a port suffix isn't required, no trailing slashes should be added
+
+$bindloc            = '/etc/bind';
+$nsname             = 'changemetodnservername';
+$domain             = 'changemetomylocaldomain';
+$nsip               = 'changemetonsip';
+
+$ttl                = 600;
+$refresh            = 10800;
+$retry              = 3600;
+$expire             = 432000;
+$negative           = 600;
